@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Мини-тест — Физика 9{% endblock %}
+{% block content %}
+<section class="page-intro reveal"><div class="eyebrow">ПРОВЕРКА ЗНАНИЙ</div><h1>Мини-тест по <span class="gradient-text">физике</span></h1><p>8 вопросов на основные понятия. Выбери один ответ в каждом вопросе.</p></section>
+{% if result %}<section class="quiz-result reveal"><div class="result-ring">{{ result.percent }}%</div><div><span class="eyebrow">ТВОЙ РЕЗУЛЬТАТ</span><h2>{{ result.correct }} из {{ result.total }} правильных ответов</h2><p>{% if result.percent >= 80 %}Отлично! Ты уверенно ориентируешься в теме.{% elif result.percent >= 50 %}Хороший старт. Повтори вопросы, в которых сомневался.{% else %}Не страшно — загляни в справочник и попробуй ещё раз.{% endif %}</p><a class="btn btn-primary" href="{{ url_for('quiz') }}">Пройти ещё раз ↻</a></div></section>{% endif %}
+<form class="quiz-form reveal" method="post">
+{% for question in questions %}{% set qi = loop.index0 %}<fieldset class="question-card"><legend><span class="question-number">{{ "%02d"|format(loop.index) }}</span>{{ question.q }}</legend><div class="answer-options">{% for option in question.options %}<label class="answer-option"><input type="radio" name="q{{ qi }}" value="{{ loop.index0 }}" required><span>{{ option }}</span></label>{% endfor %}</div></fieldset>{% endfor %}
+<button class="btn btn-primary btn-submit" type="submit">Проверить ответы <span>→</span></button>
+</form>
+{% endblock %}

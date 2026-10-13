@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Формулы — Физика 9{% endblock %}
+{% block content %}
+<section class="page-intro reveal"><div class="eyebrow">СПРАВОЧНИК</div><h1>Главные <span class="gradient-text">формулы</span></h1><p>Формулы с единицами измерения и расшифровкой обозначений.</p></section>
+<form class="filter-bar reveal" method="get"><div class="search-box"><span>⌕</span><input type="search" name="q" value="{{ q }}" placeholder="Найти формулу или величину…"></div><select name="category" aria-label="Раздел">{% for c in categories %}<option value="{{ c }}" {% if c == selected_category %}selected{% endif %}>{{ c }}</option>{% endfor %}</select><button class="btn btn-primary">Найти</button></form>
+<div class="formula-grid">
+{% for name, formula, unit, desc, category in formulas %}<article class="formula-card reveal"><div class="formula-card-top"><span class="category-label">{{ category }}</span><button class="copy-btn" data-copy="{{ formula }}" aria-label="Копировать формулу">⧉</button></div><h3>{{ name }}</h3><div class="formula-display">{{ formula }}</div><p>{{ desc }}</p><div class="unit-row"><span>Единица результата</span><b>{{ unit }}</b></div></article>{% else %}<div class="empty-state"><h2>Формулы не найдены</h2><p>Попробуй другой запрос.</p></div>{% endfor %}
+</div>
+<p class="results-line">Найдено формул: <b>{{ formulas|length }}</b>. Перед подстановкой всегда переводи значения в СИ.</p>
+{% endblock %}

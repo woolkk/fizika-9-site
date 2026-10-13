@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}{{ item.title }} — Физика 9{% endblock %}
+{% block content %}
+<div class="breadcrumbs"><a href="{{ url_for('phenomena') }}">Явления</a><span>/</span><span>{{ item.title }}</span></div>
+<section class="detail-layout reveal">
+  <div class="detail-main">
+    <span class="category-label">{{ item.category }}</span><h1>{{ item.title }}</h1>
+    <div class="detail-illustration visual-{{ (loop.index0 % 6) + 1 if loop else 2 }}"><span>{{ item.icon }}</span><div class="illustration-caption">Физика вокруг нас</div></div>
+    <div class="info-panel"><span class="panel-label">ОПРЕДЕЛЕНИЕ</span><p class="definition-large">{{ item.term }}</p></div>
+    <div class="info-panel"><span class="panel-label">ПРИМЕР ИЗ ЖИЗНИ</span><p>{{ item.example }}</p></div>
+    <div class="info-panel formula-panel"><span class="panel-label">ФОРМУЛА / ЗАКОН</span><div class="big-formula">{{ item.formula }}</div><button class="copy-btn" data-copy="{{ item.formula }}">Копировать формулу ⧉</button></div>
+    <div class="detail-actions"><a class="btn btn-ghost" href="{{ url_for('phenomena') }}">← Все явления</a><a class="btn btn-primary" href="{{ url_for('formulas') }}">К формулам →</a></div>
+  </div>
+  <aside class="detail-aside"><div class="aside-card"><span class="aside-icon">💡</span><h3>Запомни</h3><p>Попробуй найти это явление в повседневной жизни. Связь с реальными наблюдениями помогает лучше понять физику.</p></div><div class="aside-card"><h3>Полезные разделы</h3><a href="{{ url_for('terms') }}">Словарь терминов ↗</a><a href="{{ url_for('cheatsheets') }}">Шпаргалки ↗</a><a href="{{ url_for('quiz') }}">Проверить знания ↗</a></div></aside>
+</section>
+{% endblock %}

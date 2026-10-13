@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Физика 9 — учись понятно{% endblock %}
+{% block content %}
+<section class="hero reveal">
+  <div class="hero-copy">
+    <div class="eyebrow"><span class="pulse-dot"></span> ТВОЯ ЦИФРОВАЯ ЛАБОРАТОРИЯ</div>
+    <h1>Физика вокруг тебя.<br><span class="gradient-text">Разберёмся вместе.</span></h1>
+    <p class="hero-lead">Явления, термины и формулы за 9 класс — просто, наглядно и в одном месте.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="{{ url_for('phenomena') }}">Исследовать явления <span>↗</span></a>
+      <a class="btn btn-ghost" href="{{ url_for('formulas') }}">Открыть формулы</a>
+    </div>
+    <div class="hero-proof"><div class="avatar-stack"><span>⚡</span><span>🧲</span><span>🌊</span></div><span><b>{{ phenomena_count }} явлений</b><br>и самое важное по программе</span></div>
+  </div>
+  <div class="hero-art" aria-label="Иллюстрация физической лаборатории">
+    <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+    <div class="planet planet-main">φ</div><div class="planet planet-small">⚡</div><div class="planet planet-blue">🧲</div>
+    <div class="float-card float-card-top"><span class="mini-icon purple">∑</span><span><b>F = m · a</b><small>Законы движения</small></span></div>
+    <div class="float-card float-card-bottom"><span class="mini-icon green">↗</span><span><b>Наука — это просто</b><small>Понять важнее, чем зубрить</small></span></div>
+    <div class="spark spark-one">✦</div><div class="spark spark-two">·</div>
+  </div>
+</section>
+<section class="stats-grid reveal">
+  <a class="stat-card" href="{{ url_for('phenomena') }}"><span class="stat-icon">🌌</span><strong>{{ phenomena_count }}</strong><span>физических явлений</span><span class="stat-arrow">↗</span></a>
+  <a class="stat-card" href="{{ url_for('terms') }}"><span class="stat-icon">📘</span><strong>{{ terms_count }}</strong><span>важных терминов</span><span class="stat-arrow">↗</span></a>
+  <a class="stat-card" href="{{ url_for('formulas') }}"><span class="stat-icon">∑</span><strong>{{ formulas_count }}</strong><span>формул с пояснениями</span><span class="stat-arrow">↗</span></a>
+  <a class="stat-card" href="{{ url_for('cheatsheets') }}"><span class="stat-icon">✦</span><strong>5</strong><span>шпаргалок перед уроком</span><span class="stat-arrow">↗</span></a>
+</section>
+<section class="section-block reveal">
+  <div class="section-heading"><div><div class="eyebrow">ИССЛЕДУЙ МИР</div><h2>Физика в действии</h2><p>У каждого явления есть объяснение. Вот несколько примеров.</p></div><a class="text-link" href="{{ url_for('phenomena') }}">Все явления <span>→</span></a></div>
+  <div class="phenomena-grid">
+    {% for item in phenomena %}
+    <a class="phenomenon-card" href="{{ url_for('phenomenon_detail', slug=item.id) }}">
+      <div class="phenomenon-visual visual-{{ loop.index }}"><span>{{ item.icon }}</span><i class="visual-orbit"></i></div>
+      <div class="card-content"><span class="category-label">{{ item.category }}</span><h3>{{ item.title }}</h3><p>{{ item.term }}</p><div class="card-bottom"><code>{{ item.formula }}</code><span>↗</span></div></div>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+<section class="study-banner reveal"><div class="banner-symbol">?</div><div><span class="eyebrow">ПРОВЕРЬ СЕБЯ</span><h2>Готов к мини-тесту?</h2><p>8 вопросов помогут повторить ключевые понятия и формулы.</p></div><a class="btn btn-primary" href="{{ url_for('quiz') }}">Начать тест <span>→</span></a></section>
+{% endblock %}

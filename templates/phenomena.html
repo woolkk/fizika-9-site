@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Физические явления — Физика 9{% endblock %}
+{% block content %}
+<section class="page-intro reveal"><div class="eyebrow">АТЛАС НАБЛЮДЕНИЙ</div><h1>Физические <span class="gradient-text">явления</span></h1><p>Наблюдай вокруг, находи объяснения и запоминай основные определения.</p></section>
+<form class="filter-bar reveal" method="get" action="{{ url_for('phenomena') }}"><div class="search-box"><span>⌕</span><input type="search" name="q" value="{{ q }}" placeholder="Найти явление или термин…"></div><select name="category" aria-label="Категория">{% for c in categories %}<option value="{{ c }}" {% if c == selected_category %}selected{% endif %}>{{ c }}</option>{% endfor %}</select><button class="btn btn-primary" type="submit">Найти</button></form>
+<div class="results-line"><span>Найдено: <b>{{ phenomena|length }}</b></span><span>Выбери карточку, чтобы узнать больше ↘</span></div>
+{% if phenomena %}
+<div class="phenomena-grid listing-grid">
+{% for item in phenomena %}
+<a class="phenomenon-card reveal" href="{{ url_for('phenomenon_detail', slug=item.id) }}">
+  <div class="phenomenon-visual visual-{{ (loop.index % 6) + 1 }}"><span>{{ item.icon }}</span><i class="visual-orbit"></i></div>
+  <div class="card-content"><span class="category-label">{{ item.category }}</span><h3>{{ item.title }}</h3><p>{{ item.term }}</p><div class="card-bottom"><code>{{ item.formula }}</code><span>↗</span></div></div>
+</a>
+{% endfor %}
+</div>
+{% else %}<div class="empty-state"><span>🔎</span><h2>Ничего не найдено</h2><p>Попробуй изменить запрос или выбрать другую категорию.</p><a class="btn btn-ghost" href="{{ url_for('phenomena') }}">Сбросить фильтры</a></div>{% endif %}
+{% endblock %}

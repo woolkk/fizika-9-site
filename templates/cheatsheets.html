@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Шпаргалки — Физика 9{% endblock %}
+{% block content %}
+<section class="page-intro reveal"><div class="eyebrow">БЫСТРОЕ ПОВТОРЕНИЕ</div><h1>Шпаргалки <span class="gradient-text">перед уроком</span></h1><p>Краткие конспекты, чтобы освежить в памяти самое важное.</p></section>
+<div class="cheat-grid">
+{% for sheet in cheatsheets %}<article class="cheat-card reveal"><div class="cheat-head"><span class="cheat-symbol">{{ loop.index }}</span><span class="cheat-tag">{{ sheet.tag }}</span></div><h2>{{ sheet.title }}</h2><ul>{% for item in sheet["items"] %}<li>{{ item }}</li>{% endfor %}</ul><button class="btn btn-ghost btn-small print-button" type="button">Распечатать карточку ↗</button></article>{% endfor %}
+</div>
+<div class="study-banner reveal"><div class="banner-symbol">✓</div><div><span class="eyebrow">СОВЕТ</span><h2>Не просто заучивай</h2><p>Попробуй объяснить каждую формулу своими словами и придумать пример из жизни.</p></div><a class="btn btn-primary" href="{{ url_for('quiz') }}">Пройти тест →</a></div>
+{% endblock %}

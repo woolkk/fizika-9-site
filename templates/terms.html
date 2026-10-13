@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Словарь терминов — Физика 9{% endblock %}
+{% block content %}
+<section class="page-intro reveal"><div class="eyebrow">СЛОВАРЬ</div><h1>Термины <span class="gradient-text">физики</span></h1><p>Короткие определения ключевых понятий. Используй поиск для быстрого повторения.</p></section>
+<form class="filter-bar reveal" method="get"><div class="search-box"><span>⌕</span><input type="search" name="q" value="{{ q }}" placeholder="Например, давление, сила, энергия…"></div><button class="btn btn-primary">Искать</button></form>
+<div class="terms-list">
+{% for name, definition in terms %}<article class="term-row reveal"><div class="term-letter">{{ name[0] }}</div><div class="term-text"><h3>{{ name }}</h3><p>{{ definition }}</p></div><button class="copy-btn" data-copy="{{ name }} — {{ definition }}" aria-label="Копировать определение">⧉</button></article>{% else %}<div class="empty-state"><h2>Термины не найдены</h2><p>Измени поисковый запрос.</p></div>{% endfor %}
+</div><p class="results-line">Найдено терминов: <b>{{ terms|length }}</b></p>
+{% endblock %}
